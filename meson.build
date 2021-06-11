@@ -3,9 +3,9 @@ project('libhbo', 'c',
     default_options : [
         'warning_level=3',
         'c_std=c11',
+        'default_library=both'
     ]
 )
-add_languages('cpp')
 
 sources = [
     'src/hbo/string-view.c',
@@ -14,7 +14,7 @@ sources = [
 
 # gtkmmdep = dependency('gtkmm-3.0')
 
-lib = library('hbo', sources,
+hbo = library('hbo', sources,
     version: '0.1.0',
     soversion: '0',
 #   dependencies : [
@@ -25,15 +25,19 @@ lib = library('hbo', sources,
 
 lib_include_path = include_directories('src')
 
+# Tests - Unit Tests
+
+add_languages('cpp')
+
 catch2_dep = dependency('catch2',
     method: 'pkg-config',
-    link_args: ['-L .' ]
+    # link_args: ['-L .' ]
 )
 
-unit_tests = executable('unit-tests', 'src/tests/unit-tests/main.cpp',
+unit_tests_arraylist = executable('unit-tests-arraylist', 'src/hbo/arraylist.test.cpp',
     dependencies: [ catch2_dep ],
     include_directories: lib_include_path,
-    link_with: [ lib ],
-    link_args: '-L ./builddir'
+    link_with: [ hbo ],
+    # link_args: '-L ./builddir'
 )
-test('unit-tests', unit_tests)
+test('unit-tests-arraylist', unit_tests_arraylist)
