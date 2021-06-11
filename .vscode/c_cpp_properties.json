@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "libhbo",
+            "compileCommands": "${workspaceFolder}/builddir/compile_commands.json",
+            "includePath": [
+                "${workspaceFolder}/src"
+            ]
+        }
+    ],
+    "version": 4
+}
